@@ -15,3 +15,12 @@
 .ministry-gallery-grid img,.ministry-card-image>img{transition:transform .55s cubic-bezier(.2,.7,.2,1),filter .4s ease}
 @media(hover:hover){.ministry-gallery-grid figure:hover,.ministry-card-image:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(41,38,35,.14);border-color:rgba(201,166,107,.55)}.ministry-gallery-grid figure:hover img,.ministry-card-image:hover>img{transform:scale(1.045);filter:saturate(1.06)}}
 @media(prefers-reduced-motion:reduce){.ministry-gallery-grid figure,.ministry-card-image,.ministry-gallery-grid img,.ministry-card-image>img{transition:none!important}.ministry-gallery-grid figure:hover,.ministry-card-image:hover,.ministry-gallery-grid figure:hover img,.ministry-card-image:hover>img{transform:none!important;filter:none!important}}
+
+
+/* Wider desktop hero and calm, accessible motion. */
+@media(min-width:901px){.hero{grid-template-columns:.78fr 1.22fr;gap:5%;min-height:630px}.hero-visual img{height:500px}}
+.hero-visual img{animation:hero-gentle-zoom 18s ease-in-out infinite alternate;transform-origin:center}
+@keyframes hero-gentle-zoom{from{transform:scale(1)}to{transform:scale(1.065)}}
+.motion-ready .motion-reveal{opacity:0;transform:translateY(22px);transition:opacity .72s ease,transform .72s cubic-bezier(.2,.7,.2,1);transition-delay:var(--reveal-delay,0ms)}
+.motion-ready .motion-reveal.is-visible{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){.hero-visual img{animation:none!important}.motion-ready .motion-reveal{opacity:1;transform:none;transition:none}}
