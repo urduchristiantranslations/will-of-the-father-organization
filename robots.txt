@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://will-of-the-father-organization.pages.dev/sitemap.xml
