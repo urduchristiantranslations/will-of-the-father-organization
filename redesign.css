@@ -52,3 +52,6 @@ html{scroll-padding-top:82px}body{background:var(--cream);color:var(--ink)}
   .hero-title-line>span,.hero .eyebrow,.hero-intro,.hero-actions,.hero-note,.hero-ready .hero-slide{animation:none!important;clip-path:none!important;transform:none!important;opacity:1!important}
   .hero-background::after{display:none}
 }
+
+@media(min-width:901px){.hero-copy{width:min(1120px,100%);max-width:none}}
+@media(max-width:900px){.hero-copy{width:100%;max-width:980px}}
