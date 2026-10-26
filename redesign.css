@@ -40,7 +40,7 @@ html{scroll-padding-top:82px}body{background:var(--cream);color:var(--ink)}
 .hero-note{animation-delay:1s}
 @keyframes hero-soft-in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 .hero-ready .hero-slide{clip-path:inset(0 0 0 0);animation:hero-photo-reveal 1.15s cubic-bezier(.2,.7,.2,1) both}
-@keyframes hero-photo-reveal{from{clip-path:inset(0 0 0 7%);transform:scale(1.11)}to{clip-path:inset(0);transform:scale(1.025)}}
+@keyframes hero-photo-reveal{from{clip-path:inset(0 0 0 7%)}to{clip-path:inset(0)}}
 .hero-ready .hero-slide.is-active{transform:scale(1.075) translateX(-.5%)}
 @media(max-width:640px){
   .hero-background{inset:-1%}
