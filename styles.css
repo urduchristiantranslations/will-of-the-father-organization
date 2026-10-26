@@ -59,3 +59,6 @@
 @media(max-width:900px){.hero{min-height:calc(100svh - 76px);padding:88px 7% 105px}.hero h1{font-size:clamp(48px,8vw,76px)}.hero-shade{background:linear-gradient(90deg,rgba(23,20,18,.82),rgba(23,20,18,.42)),linear-gradient(0deg,rgba(23,20,18,.42),transparent 50%)}.hero-controls{right:7%}}
 @media(max-width:640px){.hero{min-height:calc(100svh - 70px);padding:72px 6% 105px;justify-content:flex-start}.hero h1{font-size:clamp(43px,11.2vw,61px);line-height:1.09}.hero-intro{font-size:15px;line-height:1.7;margin:21px 0 25px}.hero-actions{gap:19px;flex-wrap:wrap}.hero-actions .button{font-size:11px;padding:13px 15px;gap:12px}.hero-note{font-size:9px;margin-top:32px}.hero-slide{object-position:58% center}.hero-shade{background:linear-gradient(90deg,rgba(23,20,18,.82),rgba(23,20,18,.48)),linear-gradient(0deg,rgba(23,20,18,.48),rgba(23,20,18,.12))}.hero-controls{right:6%;bottom:25px}}
 @media(prefers-reduced-motion:reduce){.hero-slide{transition:none;transform:none!important}.hero-dot{transition:none}}
+
+.hero-slide--portrait{object-position:center 28%}
+@media(max-width:640px){.hero-slide--portrait{object-position:center 24%}}

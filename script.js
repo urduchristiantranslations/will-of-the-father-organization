@@ -54,8 +54,9 @@ if (heroSlides.length > 1 && heroDots.length === heroSlides.length) {
       slide.src = slide.dataset.src;
       delete slide.dataset.src;
     }
-    return slide.complete ? Promise.resolve(true) : new Promise(resolve => {
-      slide.addEventListener('load', () => resolve(true), { once: true });
+    if (slide.complete) return Promise.resolve(slide.naturalWidth > 0);
+    return new Promise(resolve => {
+      slide.addEventListener('load', () => resolve(slide.naturalWidth > 0), { once: true });
       slide.addEventListener('error', () => resolve(false), { once: true });
     });
   };
@@ -88,6 +89,7 @@ if (heroSlides.length > 1 && heroDots.length === heroSlides.length) {
     if (!event.currentTarget.contains(event.relatedTarget)) startSlideshow();
   });
   reduceMotion.addEventListener?.('change', startSlideshow);
-  loadSlide(1);
-  startSlideshow();
+  Promise.all([loadSlide(0), loadSlide(1)]).then(([firstReady, nextReady]) => {
+    if (firstReady && nextReady) startSlideshow();
+  });
 }
