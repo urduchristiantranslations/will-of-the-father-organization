@@ -18,7 +18,7 @@ if (year) year.textContent = new Date().getFullYear();
 
 
 // Reveal content as it enters view, unless the visitor prefers reduced motion.
-const revealTargets = document.querySelectorAll('.hero-copy, .intro-band, .section-heading, .ministry-card, .story-photo, .story-copy, .quote-band, .faith-heading, .faith-copy, .give-mark, .give-copy, .give-section > .button, .contact-section > *, .site-footer > *, .ministry-page-intro-inner, .ministry-gallery-heading, .ministry-gallery-grid figure, .ministry-page-cta > *, .ministry-back');
+const revealTargets = document.querySelectorAll('.hero-copy, .hero-scroll, .intro-photo, .intro-copy, .intro-band, .section-heading, .ministry-feature, .ministry-list-item, .photo-story-item, .ministry-card, .story-photo, .story-copy, .quote-band, .faith-heading, .faith-copy, .give-mark, .give-copy, .give-section > .button, .contact-section > *, .site-footer > *, .ministry-page-intro-inner, .ministry-gallery-heading, .ministry-gallery-grid figure, .ministry-page-cta > *, .ministry-back');
 if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
   document.documentElement.classList.add('motion-ready');
   const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -92,4 +92,11 @@ if (heroSlides.length > 1 && heroDots.length === heroSlides.length) {
   Promise.all([loadSlide(0), loadSlide(1)]).then(([firstReady, nextReady]) => {
     if (firstReady && nextReady) startSlideshow();
   });
+}
+
+const header = document.querySelector('.site-header');
+if (header) {
+  const updateHeader = () => header.classList.toggle('is-scrolled', window.scrollY > 12);
+  updateHeader();
+  window.addEventListener('scroll', updateHeader, { passive: true });
 }
