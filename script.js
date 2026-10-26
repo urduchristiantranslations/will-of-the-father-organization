@@ -103,3 +103,20 @@ if (header) {
   updateHeader();
   window.addEventListener('scroll', updateHeader, { passive: true });
 }
+
+
+// Gentle pointer parallax on the hero background, only for fine pointers.
+const heroMotion = document.querySelector('.hero');
+if (heroMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  heroMotion.addEventListener('pointermove', event => {
+    const bounds = heroMotion.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+    const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+    heroMotion.style.setProperty('--parallax-x', `${-x * 9}px`);
+    heroMotion.style.setProperty('--parallax-y', `${-y * 7}px`);
+  }, { passive: true });
+  heroMotion.addEventListener('pointerleave', () => {
+    heroMotion.style.setProperty('--parallax-x', '0px');
+    heroMotion.style.setProperty('--parallax-y', '0px');
+  }, { passive: true });
+}
