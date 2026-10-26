@@ -18,7 +18,7 @@ if (year) year.textContent = new Date().getFullYear();
 
 
 // Reveal content as it enters view, unless the visitor prefers reduced motion.
-const revealTargets = document.querySelectorAll('.hero-copy, .hero-visual, .intro-band, .section-heading, .ministry-card, .story-photo, .story-copy, .quote-band, .faith-heading, .faith-copy, .give-mark, .give-copy, .give-section > .button, .contact-section > *, .site-footer > *, .ministry-page-intro-inner, .ministry-gallery-heading, .ministry-gallery-grid figure, .ministry-page-cta > *, .ministry-back');
+const revealTargets = document.querySelectorAll('.hero-copy, .intro-band, .section-heading, .ministry-card, .story-photo, .story-copy, .quote-band, .faith-heading, .faith-copy, .give-mark, .give-copy, .give-section > .button, .contact-section > *, .site-footer > *, .ministry-page-intro-inner, .ministry-gallery-heading, .ministry-gallery-grid figure, .ministry-page-cta > *, .ministry-back');
 if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
   document.documentElement.classList.add('motion-ready');
   const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -37,4 +37,57 @@ if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'Intersect
     }
     revealObserver.observe(element);
   });
+}
+
+
+// Accessible, lightweight hero slideshow. The first two images are ready up front;
+// remaining photos load just before they are needed.
+const heroSlides = [...document.querySelectorAll('.hero-slide')];
+const heroDots = [...document.querySelectorAll('.hero-dot')];
+if (heroSlides.length > 1 && heroDots.length === heroSlides.length) {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let activeIndex = 0;
+  let timer;
+  const loadSlide = index => {
+    const slide = heroSlides[index];
+    if (slide.dataset.src && !slide.getAttribute('src')) {
+      slide.src = slide.dataset.src;
+      delete slide.dataset.src;
+    }
+    return slide.complete ? Promise.resolve(true) : new Promise(resolve => {
+      slide.addEventListener('load', () => resolve(true), { once: true });
+      slide.addEventListener('error', () => resolve(false), { once: true });
+    });
+  };
+  const showSlide = async index => {
+    if (!await loadSlide(index) || index === activeIndex) return;
+    heroSlides[activeIndex].classList.remove('is-active');
+    heroDots[activeIndex].classList.remove('is-active');
+    heroDots[activeIndex].setAttribute('aria-pressed', 'false');
+    activeIndex = index;
+    heroSlides[activeIndex].classList.add('is-active');
+    heroDots[activeIndex].classList.add('is-active');
+    heroDots[activeIndex].setAttribute('aria-pressed', 'true');
+    loadSlide((activeIndex + 1) % heroSlides.length);
+  };
+  const stopSlideshow = () => window.clearInterval(timer);
+  const startSlideshow = () => {
+    stopSlideshow();
+    if (!reduceMotion.matches) timer = window.setInterval(() => showSlide((activeIndex + 1) % heroSlides.length), 7000);
+  };
+  heroDots.forEach((dot, index) => dot.addEventListener('click', () => {
+    stopSlideshow();
+    showSlide(index);
+    startSlideshow();
+  }));
+  const hero = document.querySelector('.hero');
+  hero?.addEventListener('mouseenter', stopSlideshow);
+  hero?.addEventListener('mouseleave', startSlideshow);
+  hero?.addEventListener('focusin', stopSlideshow);
+  hero?.addEventListener('focusout', event => {
+    if (!event.currentTarget.contains(event.relatedTarget)) startSlideshow();
+  });
+  reduceMotion.addEventListener?.('change', startSlideshow);
+  loadSlide(1);
+  startSlideshow();
 }
