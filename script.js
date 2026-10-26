@@ -90,7 +90,10 @@ if (heroSlides.length > 1 && heroDots.length === heroSlides.length) {
   });
   reduceMotion.addEventListener?.('change', startSlideshow);
   Promise.all([loadSlide(0), loadSlide(1)]).then(([firstReady, nextReady]) => {
-    if (firstReady && nextReady) startSlideshow();
+    if (firstReady && nextReady) {
+      document.documentElement.classList.add('hero-ready');
+      startSlideshow();
+    }
   });
 }
 
