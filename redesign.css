@@ -226,3 +226,44 @@ h1,h2,h3{ text-wrap:pretty}
  .button:hover,.back-top:hover{transform:none}
  .ministry-feature:hover>img,.photo-story-item:hover img,.ministry-gallery-grid figure:hover img{transform:none}
 }
+
+
+/* Mobile hero: keep the message on solid forest green and give photos a wide, readable frame. */
+@media(max-width:640px){
+  .hero{
+    min-height:0;
+    height:auto;
+    max-height:none;
+    padding:34px 22px 0;
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+    justify-content:flex-start;
+    overflow:hidden;
+    background:#173d32;
+  }
+  .hero-copy{
+    order:1;
+    width:100%;
+    max-width:none;
+    padding:18px 0 30px;
+  }
+  .hero-background{
+    order:2;
+    position:relative;
+    z-index:0;
+    inset:auto;
+    width:calc(100% + 44px);
+    height:clamp(220px,64vw,290px);
+    flex:0 0 auto;
+    margin-inline:-22px;
+    overflow:hidden;
+  }
+  .hero-slide{object-position:center 50%}
+  .hero-slide--portrait{object-position:center 38%}
+  .hero-shade{
+    background:linear-gradient(180deg,rgba(12,34,27,.06),rgba(12,34,27,.18) 58%,rgba(12,34,27,.52));
+  }
+  .hero-controls{right:22px;bottom:18px}
+  .hero-scroll{left:22px;bottom:16px}
+}
