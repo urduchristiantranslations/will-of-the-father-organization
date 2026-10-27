@@ -1,17 +1,33 @@
 const toggle = document.querySelector('.menu-toggle');
 const nav = document.querySelector('.site-nav');
 if (toggle && nav) {
-  toggle.addEventListener('click', () => {
-    const open = toggle.getAttribute('aria-expanded') === 'true';
-    toggle.setAttribute('aria-expanded', String(!open));
-    toggle.setAttribute('aria-label', open ? 'Open navigation' : 'Close navigation');
-    nav.classList.toggle('open', !open);
-  });
-  nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+  const closeNavigation = (restoreFocus = false) => {
     toggle.setAttribute('aria-expanded', 'false');
     toggle.setAttribute('aria-label', 'Open navigation');
     nav.classList.remove('open');
-  }));
+    if (restoreFocus) toggle.focus();
+  };
+  toggle.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') === 'true';
+    if (open) closeNavigation();
+    else {
+      toggle.setAttribute('aria-expanded', 'true');
+      toggle.setAttribute('aria-label', 'Close navigation');
+      nav.classList.add('open');
+    }
+  });
+  nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => closeNavigation()));
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+      closeNavigation(true);
+    }
+  });
+  document.addEventListener('click', event => {
+    if (toggle.getAttribute('aria-expanded') === 'true' &&
+        !nav.contains(event.target) && !toggle.contains(event.target)) closeNavigation();
+  });
+  const desktopNav = window.matchMedia('(min-width: 761px)');
+  desktopNav.addEventListener?.('change', event => { if (event.matches) closeNavigation(); });
 }
 const year = document.getElementById('year');
 if (year) year.textContent = new Date().getFullYear();
@@ -72,9 +88,14 @@ if (heroSlides.length > 1 && heroDots.length === heroSlides.length) {
     loadSlide((activeIndex + 1) % heroSlides.length);
   };
   const stopSlideshow = () => window.clearInterval(timer);
+  let pointerPaused = false;
+  let focusPaused = false;
+  let heroVisible = true;
   const startSlideshow = () => {
     stopSlideshow();
-    if (!reduceMotion.matches) timer = window.setInterval(() => showSlide((activeIndex + 1) % heroSlides.length), 7000);
+    if (!reduceMotion.matches && !document.hidden && !pointerPaused && !focusPaused && heroVisible) {
+      timer = window.setInterval(() => showSlide((activeIndex + 1) % heroSlides.length), 7000);
+    }
   };
   heroDots.forEach((dot, index) => dot.addEventListener('click', () => {
     stopSlideshow();
@@ -82,15 +103,26 @@ if (heroSlides.length > 1 && heroDots.length === heroSlides.length) {
     startSlideshow();
   }));
   const hero = document.querySelector('.hero');
-  hero?.addEventListener('mouseenter', stopSlideshow);
-  hero?.addEventListener('mouseleave', startSlideshow);
-  hero?.addEventListener('focusin', stopSlideshow);
+  hero?.addEventListener('mouseenter', () => { pointerPaused = true; stopSlideshow(); });
+  hero?.addEventListener('mouseleave', () => { pointerPaused = false; startSlideshow(); });
+  hero?.addEventListener('focusin', () => { focusPaused = true; stopSlideshow(); });
   hero?.addEventListener('focusout', event => {
-    if (!event.currentTarget.contains(event.relatedTarget)) startSlideshow();
+    if (!event.currentTarget.contains(event.relatedTarget)) {
+      focusPaused = false;
+      startSlideshow();
+    }
   });
+  document.addEventListener('visibilitychange', startSlideshow);
+  if (hero && 'IntersectionObserver' in window) {
+    const heroObserver = new IntersectionObserver(([entry]) => {
+      heroVisible = entry.isIntersecting;
+      startSlideshow();
+    }, { threshold: 0.05 });
+    heroObserver.observe(hero);
+  }
   reduceMotion.addEventListener?.('change', startSlideshow);
-  Promise.all([loadSlide(0), loadSlide(1)]).then(([firstReady, nextReady]) => {
-    if (firstReady && nextReady) {
+  Promise.all([loadSlide(0), loadSlide(1)]).then(([firstReady]) => {
+    if (firstReady) {
       document.documentElement.classList.add('hero-ready');
       startSlideshow();
     }
