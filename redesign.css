@@ -581,3 +581,12 @@ html{scroll-padding-top:98px}
 @media(max-width:420px){
   .site-header .brand-logo-frame,.site-header.is-scrolled .brand-logo-frame{height:42px}
 }
+
+
+/* Use the transparent emblem alone in the header; the name is typeset beside it. */
+.site-header .brand-logo-frame,.site-header.is-scrolled .brand-logo-frame{
+  width:60px;height:60px;background:transparent;border:0;border-radius:0;
+}
+.site-header .brand-logo-frame img{width:100%;height:100%;object-fit:contain;mix-blend-mode:normal}
+@media(max-width:980px){.site-header .brand-logo-frame,.site-header.is-scrolled .brand-logo-frame{width:48px;height:48px}}
+@media(max-width:420px){.site-header .brand-logo-frame,.site-header.is-scrolled .brand-logo-frame{width:44px;height:44px}}
