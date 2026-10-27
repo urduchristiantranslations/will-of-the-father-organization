@@ -94,7 +94,7 @@ if (heroSlides.length > 1 && heroDots.length === heroSlides.length) {
   const startSlideshow = () => {
     stopSlideshow();
     if (!reduceMotion.matches && !document.hidden && !pointerPaused && !focusPaused && heroVisible) {
-      timer = window.setInterval(() => showSlide((activeIndex + 1) % heroSlides.length), 7000);
+      timer = window.setInterval(() => showSlide((activeIndex + 1) % heroSlides.length), 6000);
     }
   };
   heroDots.forEach((dot, index) => dot.addEventListener('click', () => {
@@ -121,10 +121,11 @@ if (heroSlides.length > 1 && heroDots.length === heroSlides.length) {
     heroObserver.observe(hero);
   }
   reduceMotion.addEventListener?.('change', startSlideshow);
-  Promise.all([loadSlide(0), loadSlide(1)]).then(([firstReady]) => {
+  loadSlide(0).then(firstReady => {
     if (firstReady) {
       document.documentElement.classList.add('hero-ready');
       startSlideshow();
+      loadSlide(1);
     }
   });
 }
