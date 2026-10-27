@@ -590,3 +590,50 @@ html{scroll-padding-top:98px}
 .site-header .brand-logo-frame img{width:100%;height:100%;object-fit:contain;mix-blend-mode:normal}
 @media(max-width:980px){.site-header .brand-logo-frame,.site-header.is-scrolled .brand-logo-frame{width:48px;height:48px}}
 @media(max-width:420px){.site-header .brand-logo-frame,.site-header.is-scrolled .brand-logo-frame{width:44px;height:44px}}
+
+
+/* Keep the mobile slideshow behind the hero copy, matching the desktop composition. */
+@media(max-width:640px){
+  .hero{
+    position:relative;
+    min-height:690px;
+    height:calc(100svh - 70px);
+    max-height:850px;
+    padding:112px 6% 104px;
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+    justify-content:center;
+    overflow:hidden;
+    background:#173d32;
+  }
+  .hero-background{
+    position:absolute;
+    z-index:0;
+    inset:-1%;
+    width:auto;
+    height:auto;
+    flex:none;
+    margin:0;
+    order:initial;
+    overflow:hidden;
+  }
+  .hero-copy{
+    position:relative;
+    z-index:2;
+    order:initial;
+    width:100%;
+    max-width:none;
+    padding:0;
+  }
+  .hero-slide{object-position:center 50%}
+  .hero-slide--portrait{object-position:center 38%}
+  .hero-shade{
+    position:absolute;
+    inset:0;
+    z-index:1;
+    background:linear-gradient(90deg,rgba(12,34,27,.88),rgba(18,42,34,.66)),linear-gradient(0deg,rgba(12,34,27,.48),transparent 64%);
+  }
+  .hero-controls{z-index:4;right:6%;bottom:31px}
+  .hero-scroll{z-index:4;left:6%;bottom:22px}
+}
