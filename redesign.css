@@ -310,3 +310,40 @@ h1,h2,h3{ text-wrap:pretty}
 @media(prefers-reduced-motion:reduce){
   .ministry-list-thumb img{transition:none}
 }
+
+
+/* Use one consistent image-led card system for all nine ministry categories. */
+.ministry-feature-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  grid-auto-rows:clamp(350px,34vw,430px);
+  gap:16px;
+}
+.ministry-feature-grid>.ministry-feature,
+.ministry-feature-grid>.ministry-feature--large{
+  display:block;
+  min-height:0;
+  height:100%;
+  grid-column:auto;
+  grid-row:auto;
+  color:inherit;
+  text-decoration:none;
+}
+.ministry-feature-grid>.ministry-feature:focus-visible{
+  outline:2px solid var(--gold);
+  outline-offset:4px;
+}
+.ministry-feature-grid .card-more{display:inline-flex;align-items:center;gap:7px}
+@media(max-width:900px){
+  .ministry-feature-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:360px}
+}
+@media(max-width:640px){
+  .ministry-feature-grid{grid-template-columns:1fr;grid-auto-rows:340px;gap:13px}
+  .ministry-feature-grid>.ministry-feature,
+  .ministry-feature-grid>.ministry-feature--large{height:100%;min-height:0}
+}
+@media(hover:hover){
+  .ministry-feature-grid>.ministry-feature:hover{transform:translateY(-2px)}
+}
+@media(prefers-reduced-motion:reduce){
+  .ministry-feature-grid>.ministry-feature{transition:none}
+}
