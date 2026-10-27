@@ -26,7 +26,7 @@ if (toggle && nav) {
     if (toggle.getAttribute('aria-expanded') === 'true' &&
         !nav.contains(event.target) && !toggle.contains(event.target)) closeNavigation();
   });
-  const desktopNav = window.matchMedia('(min-width: 761px)');
+  const desktopNav = window.matchMedia('(min-width: 981px)');
   desktopNav.addEventListener?.('change', event => { if (event.matches) closeNavigation(); });
 }
 const year = document.getElementById('year');
