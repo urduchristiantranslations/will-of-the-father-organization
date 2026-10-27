@@ -571,3 +571,13 @@ html{scroll-padding-top:98px}
 @media(max-width:420px){
   .site-header .brand-logo-frame,.site-header.is-scrolled .brand-logo-frame{height:45px}
 }
+
+/* Refine the logo crop to fully exclude its tiny lower wordmark. */
+.site-header .brand-logo-frame{height:56px}
+.site-header.is-scrolled .brand-logo-frame{height:52px}
+@media(max-width:980px){
+  .site-header .brand-logo-frame,.site-header.is-scrolled .brand-logo-frame{height:46px}
+}
+@media(max-width:420px){
+  .site-header .brand-logo-frame,.site-header.is-scrolled .brand-logo-frame{height:42px}
+}
