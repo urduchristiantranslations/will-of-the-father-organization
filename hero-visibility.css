@@ -1,0 +1,9 @@
+/* Let the ministry photographs show through while keeping white hero text readable. */
+.hero-shade{
+  background:linear-gradient(90deg,rgba(12,34,27,.60) 0%,rgba(18,42,34,.43) 46%,rgba(18,42,34,.16) 100%),linear-gradient(0deg,rgba(12,34,27,.34),transparent 58%);
+}
+@media(max-width:640px){
+  .hero-shade{
+    background:linear-gradient(90deg,rgba(12,34,27,.66) 0%,rgba(18,42,34,.47) 58%,rgba(18,42,34,.24) 100%),linear-gradient(0deg,rgba(12,34,27,.40),transparent 66%);
+  }
+}
