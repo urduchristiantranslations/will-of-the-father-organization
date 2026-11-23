@@ -637,3 +637,16 @@ html{scroll-padding-top:98px}
   .hero-controls{z-index:4;right:6%;bottom:31px}
   .hero-scroll{z-index:4;left:6%;bottom:22px}
 }
+
+
+/* Mobile hero framing: keep the photos behind the message while centering each scene's focal point. */
+@media(max-width:640px){
+  .hero-slide{transform:scale(1.005);object-fit:cover;}
+  .hero-slide.is-active{transform:scale(1.005);}
+  .hero-ready .hero-slide.is-active{transform:scale(1.025);}
+  .hero-background .hero-slide:nth-child(1){object-position:50% 58%;}
+  .hero-background .hero-slide:nth-child(2){object-position:76% 50%;}
+  .hero-background .hero-slide:nth-child(3){object-position:50% 48%;}
+  .hero-background .hero-slide:nth-child(4){object-position:42% 50%;}
+  .hero-background .hero-slide:nth-child(5){object-position:34% 50%;}
+}
