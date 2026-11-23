@@ -650,3 +650,7 @@ html{scroll-padding-top:98px}
   .hero-background .hero-slide:nth-child(4){object-position:42% 50%;}
   .hero-background .hero-slide:nth-child(5){object-position:34% 50%;}
 }
+
+
+/* Category links use a clean text-only label. */
+.ministry-feature-grid .card-more > span{display:none!important}
