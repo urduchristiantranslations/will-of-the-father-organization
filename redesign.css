@@ -654,3 +654,5 @@ html{scroll-padding-top:98px}
 
 /* Category links use a clean text-only label. */
 .ministry-feature-grid .card-more > span{display:none!important}
+
+.hero .hero-actions .button > span{display:none!important}
