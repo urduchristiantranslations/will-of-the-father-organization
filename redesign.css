@@ -658,3 +658,17 @@ html{scroll-padding-top:98px}
 .hero .hero-actions .button > span{display:none!important}
 
 .story-copy a.text-link-dark > span{display:none!important}
+
+/* Consistent ministry gallery frames and captions across every detail page. */
+.ministry-gallery-grid{align-items:stretch}
+.ministry-gallery-grid figure{display:flex;flex-direction:column;min-width:0;border-radius:3px}
+.ministry-gallery-grid img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;object-position:center}
+.ministry-gallery-grid figcaption{flex:1;display:flex;align-items:flex-start;min-height:4.2em;padding:14px 16px 16px;font-size:12px;line-height:1.55;color:#586267}
+@media(max-width:640px){
+ .ministry-gallery-grid{gap:12px}
+ .ministry-gallery-grid img{aspect-ratio:1/1}
+ .ministry-gallery-grid figcaption{min-height:4.4em;padding:11px 12px 13px;font-size:11px;line-height:1.5}
+}
+@media(prefers-reduced-motion:reduce){
+ .ministry-gallery-grid figure,.ministry-gallery-grid img{transition:none!important}
+}
